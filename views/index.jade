@@ -1,0 +1,45 @@
+extends layout
+block head
+    script(src="/lib/angularjs/1.2.0-rc.3/angular.min.js",type="text/javascript")
+    script(src="/lib/angularjs/1.2.0-rc.3/angular-animate.min.js",type="text/javascript")
+    script(src="/javascripts/script.js",type="text/javascript")
+    
+block content
+    h1= title
+    p Welcome to #{title}
+
+    nav(class="navbar navbar-default",role="navigation")
+        div(class="navbar-header")
+        button(type="button",class="navbar-toggle",data-toggle="collapse",data-target=".navbar-ex1-collapse")
+            span(class="sr-only") Toggle navigation
+            span(class="icon-bar")
+            span(class="icon-bar")
+            span(class="icon-bar")
+        a(class="navbar-brand" href="#") Brand
+        form(class="navbar-form navbar-left",role="search")
+            div(class="form-group")
+                input(type="text",class="form-control",placeholder="Search")
+                    <span class="glyphicon glyphicon-star"></span>
+
+    div(ng-controller="PersonsController")
+        div(class='container')
+            fieldset
+                legend Find Person
+                div(class="input-group input-group")
+                    span(class="input-group-addon")
+                        span(class="glyphicon glyphicon-search")
+                    input(type="search",ng-model="nameFilter",class="form-control input",placeholder="Search")
+                h6 You have {{persons.length}}
+                
+        div(class='container')
+            legend Repeat Data
+            ul(class='example-animate-container')
+                li(ng-repeat='person in persons|filter:nameFilter',class='animate-repeat')
+                    fieldset
+                        dl(class="dl-horizontal")
+                            dt Id:
+                            dd {{$index + 1}}
+                            dt Name: 
+                            dd {{person.name}}
+                            dt Age:
+                            dd{{person.age}} years old
